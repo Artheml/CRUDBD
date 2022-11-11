@@ -1,0 +1,42 @@
+import mysql.connector
+
+conexao = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passoword=" ",
+    database="controle_de_estoque")  # nome do banco
+
+cursor = conexao.cursor()
+
+while True:
+
+    #CREAT
+    nome_bebida = str(input("Insira uma bebida: "))
+    qtd_bebida = int(input("Insira a quantidade de bebidas: "))
+    comando = f'INSERT INTO bebida (nome_bebida, qtd_bebida) VALUES ("{nome_bebida}", {qtd_bebida})'  # bebida é o nome da tabela
+    cursor.execute(comando)
+    conexao.commmit()
+
+    # READ
+    comando = f'SELECT * from bebida'
+    cursor.execute(comando)
+    resultado = cursor.fetchall()
+    print(resultado)
+
+    # UPDATE
+    nome_bebida = str(input("Insira uma bebida: "))
+    qtd_bebida = int(input("Insira a quantidade de bebidas: "))
+    comando = f'UPDATE bebida SET qtd_bebida ={qtd_bebida} WHERE nome_bebida = "{nome_bebida}"'
+    cursor.execute(comando)
+    conexao.commmit()
+
+    cursor.close()
+    conexao.close()
+
+    #DELETE
+    nome_bebida = str(input("Insira uma bebida: "))
+    qtd_bebida = int(input("Insira a quantidade de bebidas: "))
+    comando = f'DELETE FROM bebida WHERE nome_bebida, qtd_bebida = "{nome_bebida}", {qtd_bebida}'  
+    cursor.execute(comando)
+    conexao.commmit()
+
